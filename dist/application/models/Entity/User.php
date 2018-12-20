@@ -68,6 +68,36 @@ class User {
      * @since   1.0.0
      */
     protected $last_ip;
+    
+    /**
+     * Regra de pontuação - Acertar o placar
+     * @Column(type="integer", name="points_ap", nullable=TRUE)
+     */
+    private $points_ap;
+
+    /**
+     * Regra de pontuação - Acertar os gols do vencedor
+     * @Column(type="integer", name="points_gv", nullable=TRUE)
+     */
+    private $points_gv;
+
+    /**
+     * Regra de pontuação - Acertar o saldo de gols
+     * @Column(type="integer", name="points_sg", nullable=TRUE)
+     */
+    private $points_sg;
+
+    /**
+     * Regra de pontuação - Acertar os gols do perdedor
+     * @Column(type="integer", name="points_gp", nullable=TRUE)
+     */
+    private $points_gp;
+
+    /**
+     * Regra de pontuação - Acertar o vencedor
+     * @Column(type="integer", name="points_av", nullable=TRUE)
+     */
+    private $points_av;
 
     /**
      * Get the value of id
@@ -233,6 +263,106 @@ class User {
     public function set_last_ip($last_ip)
     {
         $this->last_ip = $last_ip;
+
+        return $this;
+    }
+
+    /**
+     * Get regra de pontuação - Acertar o placar
+     */ 
+    public function get_points_ap()
+    {
+        return $this->points_ap;
+    }
+
+    /**
+     * Set regra de pontuação - Acertar o placar
+     *
+     * @return  self
+     */ 
+    public function set_points_ap($points_ap)
+    {
+        $this->points_ap = $points_ap;
+
+        return $this;
+    }
+
+    /**
+     * Get regra de pontuação - Acertar os gols do vencedor
+     */ 
+    public function get_points_gv()
+    {
+        return $this->points_gv;
+    }
+
+    /**
+     * Set regra de pontuação - Acertar os gols do vencedor
+     *
+     * @return  self
+     */ 
+    public function set_points_gv($points_gv)
+    {
+        $this->points_gv = $points_gv;
+
+        return $this;
+    }
+
+    /**
+     * Get regra de pontuação - Acertar o saldo de gols
+     */ 
+    public function get_points_sg()
+    {
+        return $this->points_sg;
+    }
+
+    /**
+     * Set regra de pontuação - Acertar o saldo de gols
+     *
+     * @return  self
+     */ 
+    public function set_points_sg($points_sg)
+    {
+        $this->points_sg = $points_sg;
+
+        return $this;
+    }
+
+    /**
+     * Get regra de pontuação - Acertar os gols do perdedor
+     */ 
+    public function get_points_gp()
+    {
+        return $this->points_gp;
+    }
+
+    /**
+     * Set regra de pontuação - Acertar os gols do perdedor
+     *
+     * @return  self
+     */ 
+    public function set_points_gp($points_gp)
+    {
+        $this->points_gp = $points_gp;
+
+        return $this;
+    }
+
+    /**
+     * Get regra de pontuação - Acertar o vencedor
+     */ 
+    public function get_points_av()
+    {
+        return $this->points_av;
+    }
+
+    /**
+     * Set regra de pontuação - Acertar o vencedor
+     *
+     * @return  self
+     */ 
+    public function set_points_av($points_av)
+    {
+        $this->points_av = $points_av;
 
         return $this;
     }

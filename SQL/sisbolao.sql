@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 19-Dez-2018 às 21:57
+-- Generation Time: 20-Dez-2018 às 03:39
 -- Versão do servidor: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -38,6 +38,11 @@ CREATE TABLE IF NOT EXISTS `administrator` (
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `last_login` datetime DEFAULT NULL,
   `last_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `points_ap` int(11) DEFAULT NULL,
+  `points_gv` int(11) DEFAULT NULL,
+  `points_sg` int(11) DEFAULT NULL,
+  `points_gp` int(11) DEFAULT NULL,
+  `points_av` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -68,6 +73,11 @@ CREATE TABLE IF NOT EXISTS `bettingset` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `creator_id` int(11) DEFAULT NULL,
   `round_id` int(11) DEFAULT NULL,
+  `rule_ap` int(11) NOT NULL,
+  `rule_gv` int(11) NOT NULL,
+  `rule_sg` int(11) NOT NULL,
+  `rule_gp` int(11) NOT NULL,
+  `rule_av` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_A60CB74861220EA6` (`creator_id`),
   UNIQUE KEY `UNIQ_A60CB748A6005CA0` (`round_id`)
@@ -89,6 +99,11 @@ CREATE TABLE IF NOT EXISTS `bettor` (
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `last_login` datetime DEFAULT NULL,
   `last_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `points_ap` int(11) DEFAULT NULL,
+  `points_gv` int(11) DEFAULT NULL,
+  `points_sg` int(11) DEFAULT NULL,
+  `points_gp` int(11) DEFAULT NULL,
+  `points_av` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -182,16 +197,41 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `last_login` datetime DEFAULT NULL,
   `last_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `points_ap` int(11) DEFAULT NULL,
+  `points_gv` int(11) DEFAULT NULL,
+  `points_sg` int(11) DEFAULT NULL,
+  `points_gp` int(11) DEFAULT NULL,
+  `points_av` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`id`, `access_level`, `state`, `name`, `email`, `password`, `last_login`, `last_ip`) VALUES
-(1, '1', '0', 'Lucas de Jesus Santos Brito', 'lucasljsb@gmail.com', '123456', NULL, NULL),
-(2, '1', '0', 'Guilherme do Valle', 'gdovalle@gmail.com', '12345', NULL, NULL);
+INSERT INTO `users` (`id`, `access_level`, `state`, `name`, `email`, `password`, `last_login`, `last_ip`, `points_ap`, `points_gv`, `points_sg`, `points_gp`, `points_av`) VALUES
+(1, '0', '0', 'Lucas de Jesus Santos Brito', 'lucasljsb@gmail.com', '121ba08caec4986e5d291e68b01f596a', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `user_history`
+--
+
+DROP TABLE IF EXISTS `user_history`;
+CREATE TABLE IF NOT EXISTS `user_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `bettingset_id` int(11) DEFAULT NULL,
+  `ap` int(11) NOT NULL,
+  `gv` int(11) NOT NULL,
+  `sg` int(11) NOT NULL,
+  `gp` int(11) NOT NULL,
+  `av` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_7FB76E41A76ED395` (`user_id`),
+  UNIQUE KEY `UNIQ_7FB76E41BAFA6DBA` (`bettingset_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Constraints for dumped tables
@@ -236,6 +276,13 @@ ALTER TABLE `rounds`
 --
 ALTER TABLE `scoreboards`
   ADD CONSTRAINT `FK_C09A6D072ABEACD6` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`);
+
+--
+-- Limitadores para a tabela `user_history`
+--
+ALTER TABLE `user_history`
+  ADD CONSTRAINT `FK_7FB76E41A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `FK_7FB76E41BAFA6DBA` FOREIGN KEY (`bettingset_id`) REFERENCES `bettingset` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
