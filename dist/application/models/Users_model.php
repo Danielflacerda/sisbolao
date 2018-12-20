@@ -70,7 +70,7 @@ class Users_model extends SISB_Model {
             $user->set_state(0); # status da conta; 0 = normal
             $user->set_name($form_data['name']);
             $user->set_email($form_data['email']);
-            $user->set_password($form_data['password']); # criptografar a senha?
+            $user->set_password(md5($form_data['password'])); # criptografar a senha?
 
             # iniciar persistência
             $this->doctrine->get_entity_manager()->persist($user);
@@ -114,7 +114,7 @@ class Users_model extends SISB_Model {
                     ->andWhere('users.password = :password')
                     ->setParameters(array(
                         'email' => $form_data['email'],
-                        'password' => $form_data['password']
+                        'password' => md5($form_data['password'])
                     ))
                     ->setMaxResults(1);
                 $query = $qb->getQuery();
